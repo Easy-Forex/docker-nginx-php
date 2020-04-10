@@ -21,7 +21,6 @@ RUN yum -y install --setopt=tsflags=nodocs curl \
     php-mbstring \
     php-mcrypt \
     php-mysqlnd \
-    php-pecl-imagick \
     php-pecl-memcached \
     && yum clean all \
     && rm -rf /var/cache/yum
