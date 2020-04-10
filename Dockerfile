@@ -25,4 +25,7 @@ RUN yum -y install --setopt=tsflags=nodocs curl \
     && yum clean all \
     && rm -rf /var/cache/yum
 
+COPY php.ini /etc/
+COPY www.conf /etc/php-fpm.d/
+
 CMD ["/bin/bash"]
