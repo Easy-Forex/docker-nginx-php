@@ -50,4 +50,7 @@ RUN chown -R nginx.nginx /run/php-fpm && \
 COPY run.sh /opt/
 RUN chmod a+x /opt/run.sh
 
-CMD ["/bin/bash"]
+EXPOSE 8080
+
+USER nginx:nginx
+CMD ["/opt/run.sh"]
