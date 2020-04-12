@@ -25,10 +25,29 @@ RUN yum -y install --setopt=tsflags=nodocs curl \
     && yum clean all \
     && rm -rf /var/cache/yum
 
+# Make necessary dirs
+RUN mkdir -p /run/php-fpm && \
+    mkdir -p /run/nginx && \
+    mkdir -p /var/cache/nginx && \
+    mkdir -p /var/www/html
+
 # Copy configs
 COPY php/php.ini /etc/
 COPY php/www.conf /etc/php-fpm.d/
 COPY nginx/nginx.conf /etc/nginx/
 COPY nginx/default.conf /etc/nginx/conf.d/
+
+# Set necessary permissions
+RUN chown -R nginx.nginx /run/php-fpm && \
+    chown -R nginx.nginx /run/nginx && \
+    chown -R nginx.nginx /var/lib/php && \
+    chown -R nginx.nginx /var/lib/nginx && \
+    chown -R nginx.nginx /var/log/php-fpm && \
+    chown -R nginx.nginx /var/cache/nginx && \
+    chown -R nginx.nginx /var/www
+
+# Setup init script
+COPY run.sh /opt/
+RUN chmod a+x /opt/run.sh
 
 CMD ["/bin/bash"]
