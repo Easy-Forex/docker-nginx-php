@@ -46,6 +46,10 @@ RUN chown -R nginx.nginx /run/php-fpm && \
     chown -R nginx.nginx /var/cache/nginx && \
     chown -R nginx.nginx /var/www
 
+# Symlink logs to stdout / stderr
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
+
 # Setup init script
 COPY run.sh /opt/
 RUN chmod a+x /opt/run.sh
