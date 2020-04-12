@@ -25,8 +25,10 @@ RUN yum -y install --setopt=tsflags=nodocs curl \
     && yum clean all \
     && rm -rf /var/cache/yum
 
-COPY php.ini /etc/
-COPY www.conf /etc/php-fpm.d/
-COPY nginx.conf /etc/nginx/
+# Copy configs
+COPY php/php.ini /etc/
+COPY php/www.conf /etc/php-fpm.d/
+COPY nginx/nginx.conf /etc/nginx/
+COPY nginx/default.conf /etc/nginx/conf.d/
 
 CMD ["/bin/bash"]
