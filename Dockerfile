@@ -15,6 +15,7 @@ RUN yum -y install --setopt=tsflags=nodocs curl \
     php-cli \
     php-xml \
     php-json \
+    php-intl \
     php-opcache \
     php-pecl-apcu \
     php-pdo \
