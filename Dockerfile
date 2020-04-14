@@ -57,5 +57,4 @@ RUN chmod a+x /opt/run.sh
 
 EXPOSE 8080
 
-USER nginx:nginx
 CMD ["/opt/run.sh"]
