@@ -49,20 +49,14 @@ RUN chmod a+x /opt/run.sh
 COPY php/php.ini /etc/
 COPY php/www.conf /etc/php-fpm.d/
 COPY nginx/nginx.conf /etc/nginx/
-COPY nginx/default.conf.template /tmp/
-
-# Set arguments
-ARG working_dir=/var/www/html
+COPY nginx/default.conf /etc/nginx/conf.d/
 
 # Set ENV variables
-ENV NGINX_ROOTPATH=$working_dir
+ENV NGINX_DEFAULT_ROOT=/var/www/html
 
 # Make working dir and set permissions
-RUN mkdir -p $working_dir && \
-    chown -R nginx.nginx $working_dir
-
-# Substitute variables in templates
-RUN envsubst '${NGINX_ROOTPATH}' < /tmp/default.conf.template > /etc/nginx/conf.d/default.conf
+RUN mkdir -p ${NGINX_DEFAULT_ROOT} && \
+    chown -R nginx.nginx ${NGINX_DEFAULT_ROOT}
 
 # Expose port
 EXPOSE 8080
