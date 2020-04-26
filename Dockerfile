@@ -30,12 +30,14 @@ RUN yum -y install --setopt=tsflags=nodocs curl \
 RUN mkdir -p /run/php-fpm && \
     mkdir -p /run/nginx && \
     mkdir -p /var/cache/nginx && \
+    mkdir -p /var/www/html && \
     chown -R nginx.nginx /run/php-fpm && \
     chown -R nginx.nginx /run/nginx && \
     chown -R nginx.nginx /var/lib/php && \
     chown -R nginx.nginx /var/lib/nginx && \
     chown -R nginx.nginx /var/log/php-fpm && \
-    chown -R nginx.nginx /var/cache/nginx
+    chown -R nginx.nginx /var/cache/nginx && \
+    chown -R nginx.nginx /var/www/html
 
 # Symlink logs to stdout / stderr
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
@@ -52,11 +54,7 @@ COPY nginx/nginx.conf /etc/nginx/
 COPY nginx/default.conf /etc/nginx/conf.d/
 
 # Set ENV variables
-ENV NGINX_DEFAULT_ROOT=/var/www/html
-
-# Make working dir and set permissions
-RUN mkdir -p ${NGINX_DEFAULT_ROOT} && \
-    chown -R nginx.nginx ${NGINX_DEFAULT_ROOT}
+ENV APP_WEBROOT=
 
 # Expose port
 EXPOSE 8080
