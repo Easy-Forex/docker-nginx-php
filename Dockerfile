@@ -3,7 +3,7 @@ FROM easymarkets/centos:latest
 # Install Remi
 RUN rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
-# Enable PHP 7.2
+# Enable PHP 7.1
 RUN yum-config-manager --enable remi-php71
 
 # Install PHP and tools
