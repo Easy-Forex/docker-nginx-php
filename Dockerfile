@@ -7,9 +7,11 @@ RUN rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 RUN yum-config-manager --enable remi-php72
 
 # Install PHP and tools
-RUN yum -y install --setopt=tsflags=nodocs curl \
+RUN yum -y install --setopt=tsflags=nodocs \
+    curl \
     libcurl \
     nginx \
+    nginx-mod-http-perl \
     php-fpm \
     php-common \
     php-cli \
